@@ -30,7 +30,7 @@ h1 {
 }
 
 .control {
-    margin: 15px 0;
+    margin: 25px 0;
 }
 
 label {
@@ -48,7 +48,7 @@ input[type="number"] {
 }
 
 input[type="range"] {
-    width: 300px;
+    width: 80%;
 }
 
 #info {
@@ -58,8 +58,8 @@ input[type="range"] {
 }
 
 #displayArea {
-    margin-top: 40px;
-    min-height: 250px;
+    margin-top: 30px;
+    min-height: 350px;
 
     display: flex;
     justify-content: center;
@@ -90,6 +90,10 @@ input[type="range"] {
     <input type="number" id="baseSize" value="10" min="1">
 </div>
 
+<div id="displayArea">
+    <div id="displayText">数学</div>
+</div>
+
 <div class="control">
     <label>拡大率 (%)</label>
     <input type="number" id="scaleInput" value="100" min="10" max="500">
@@ -101,10 +105,6 @@ input[type="range"] {
 
 <div id="info">
     現在の文字サイズ：10.0 pt
-</div>
-
-<div id="displayArea">
-    <div id="displayText">数学</div>
 </div>
 
 <script>
