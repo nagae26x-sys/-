@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文字拡大率シミュレーター</title>
+
+<style>
+body {
+    font-family: "Yu Gothic", sans-serif;
+    margin: 20px;
+    text-align: center;
+    background-color: #ffffff;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+.control {
+    margin: 15px 0;
+}
+
+label {
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"] {
+    font-size: 1.2rem;
+    padding: 8px;
+    width: 180px;
+    text-align: center;
+}
+
+input[type="range"] {
+    width: 300px;
+}
+
+#info {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#displayArea {
+    margin-top: 40px;
+    min-height: 250px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 2px solid #cccccc;
+    border-radius: 12px;
+}
+
+#displayText {
+    line-height: 1.2;
+}
+</style>
+</head>
+
+<body>
+
+<h1>文字拡大率シミュレーター</h1>
+
+<div class="control">
+    <label>表示文字</label>
+    <input type="text" id="textInput" value="数学">
+</div>
+
+<div class="control">
+    <label>基準文字サイズ (pt)</label>
+    <input type="number" id="baseSize" value="10" min="1">
+</div>
+
+<div class="control">
+    <label>拡大率 (%)</label>
+    <input type="number" id="scaleInput" value="100" min="10" max="500">
+</div>
+
+<div class="control">
+    <input type="range" id="scaleSlider" min="10" max="500" value="100">
+</div>
+
+<div id="info">
+    現在の文字サイズ：10.0 pt
+</div>
+
+<div id="displayArea">
+    <div id="displayText">数学</div>
+</div>
+
+<script>
+
+const textInput = document.getElementById("textInput");
+const baseSize = document.getElementById("baseSize");
+const scaleInput = document.getElementById("scaleInput");
+const scaleSlider = document.getElementById("scaleSlider");
+
+const displayText = document.getElementById("displayText");
+const info = document.getElementById("info");
+
+function updateDisplay() {
+
+    const text = textInput.value || " ";
+    const basePt = parseFloat(baseSize.value) || 10;
+    const scale = parseFloat(scaleInput.value) || 100;
+
+    const currentPt = basePt * scale / 100;
+
+    displayText.textContent = text;
+
+    displayText.style.fontSize = currentPt + "pt";
+
+    info.textContent =
+        `現在の文字サイズ：${currentPt.toFixed(1)} pt`;
+
+    scaleSlider.value = scale;
+}
+
+textInput.addEventListener("input", updateDisplay);
+baseSize.addEventListener("input", updateDisplay);
+
+scaleInput.addEventListener("input", () => {
+    scaleSlider.value = scaleInput.value;
+    updateDisplay();
+});
+
+scaleSlider.addEventListener("input", () => {
+    scaleInput.value = scaleSlider.value;
+    updateDisplay();
+});
+
+updateDisplay();
+
+</script>
+
+</body>
+</html>
