@@ -2,15 +2,27 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width,
+initial-scale=1.0,
+maximum-scale=1.0,
+user-scalable=no">
+
 <title>文字拡大率シミュレーター</title>
 
 <style>
+
 body {
     font-family: "Yu Gothic", sans-serif;
     margin: 20px;
     text-align: center;
     background-color: #ffffff;
+
+    touch-action: manipulation;
+
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 h1 {
@@ -60,6 +72,7 @@ input[type="range"] {
 #displayText {
     line-height: 1.2;
 }
+
 </style>
 </head>
 
@@ -136,6 +149,25 @@ scaleSlider.addEventListener("input", () => {
 });
 
 updateDisplay();
+
+
+// ピンチズーム抑制
+document.addEventListener('gesturestart', function (e) {
+    e.preventDefault();
+});
+
+// ダブルタップ拡大抑制
+let lastTouchEnd = 0;
+
+document.addEventListener('touchend', function (event) {
+    const now = Date.now();
+
+    if (now - lastTouchEnd <= 300) {
+        event.preventDefault();
+    }
+
+    lastTouchEnd = now;
+}, false);
 
 </script>
 
